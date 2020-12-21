@@ -1,0 +1,137 @@
+struct Inventory{
+  string head;
+  string core;
+  string arms;
+  string legs;
+  string booster;
+  string weapon;
+}
+
+// Kiwi dosen't have support for nested arrays
+// https://github.com/evanw/kiwi/issues/10
+struct Color {
+  float r;
+  float g;
+  float b;
+  float a;
+}
+
+struct Animation {
+  string current;
+  string prev;
+  bool noLoop;
+  float time;
+}
+
+struct EntityAnimation {
+  Animation lower;
+  Animation upper;
+}
+
+message Entity{
+  string id = 1;
+  string type = 2;
+  int[] front = 3;
+  int[] right = 4;
+  float[] position = 5;
+  float[] rotation = 6;
+  float[] eGeoRadius = 7;
+  int lookSpeed = 8;
+
+  int jumpStrength = 9;
+  int jumpVelocity = 10;
+  int jumpAcceleration = 11;
+
+  int[] moveAxisDirection = 12;
+  int[] lookAxisDirection = 13;
+
+
+  string userName = 14;
+  string skeleton = 15;
+  EntityAnimation animation = 16;
+  Color[] palette = 17;
+  Inventory items = 18;
+
+
+  float[] viewVertRotation = 19;
+  int[] hitpoints = 20;
+
+  //projectile specific data
+  float[] direction = 21;
+
+  // lastInput
+  int lastInputAck = 22;
+
+  Loop loop = 23;
+
+  bool dashing = 24;
+
+  int[] engine = 25;
+  int[] special = 26;
+
+  bool jetpackin = 27;
+  string[] killList = 28;
+  string assetId = 29;
+
+  // New ECS props
+  string[] behaviors = 30;
+  int[] geometryOffset = 31;
+  bool collider = 32;
+  int[] broadPhaseBoxPadding = 33;
+  string[] assetFiles = 34;
+  int[] color = 35;
+  string parentId = 36;
+  string[] childIds = 37;
+}
+
+struct Loop {
+  float dt;
+  float elapsed;
+  int tickCount;
+  float curTime;
+}
+
+message Scene{
+  Loop time = 1;
+  string[] assetIds = 2;
+  map<string, Entity> entities = 3;
+}
+
+struct Player{
+  string userName;
+  Color[] palette;
+  Inventory items;
+}
+
+message Payload{
+  map<string, Entity> entities = 1;
+  int[] inputMove = 2;
+  int movementX = 3;
+  int movementY = 4;
+  Scene scene = 5;
+
+  //Chat payloads
+  string userName = 6;
+  string message = 7;
+
+  //input payload
+  int jumpBool = 8;
+
+  // Asset welcome package
+  string[] assetIds = 9;
+
+  Player player = 10;
+  Loop time = 11;
+}
+
+message Meta{
+  int inputId = 1;
+}
+
+message Action{
+  string type = 1;
+  string systemId = 2;
+  Payload payload = 3;
+  Meta meta = 4;
+  Loop loop = 5;
+}

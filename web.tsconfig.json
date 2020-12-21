@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "./node_modules",
+    "./src/server.worker.ts",
+    "./src/server.ts",
+    "./src/network/ServerNetwork.ts"
+  ]
+}
