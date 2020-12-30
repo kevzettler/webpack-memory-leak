@@ -13,4 +13,4 @@ npm install
 npm start
 ```
 
-Edit files
+Edit files causing webpack to reload it should trigger memory leak after a few reloads
